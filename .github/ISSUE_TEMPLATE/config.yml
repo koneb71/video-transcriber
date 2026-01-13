@@ -1,0 +1,6 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability report
+    url: https://github.com/konebo/local-media-transcriber/security/advisories/new
+    about: Please report security vulnerabilities privately (update this link for your repo).
+

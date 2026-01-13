@@ -1,0 +1,79 @@
+name: Bug report
+description: Something isn't working as expected
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug.
+        Please include as much detail as you can so we can reproduce and fix it quickly.
+
+  - type: input
+    id: version
+    attributes:
+      label: App/Repo version
+      description: Commit hash or release version (if known)
+      placeholder: e.g. main @ abc1234
+    validations:
+      required: false
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - macOS
+        - Windows
+        - Linux
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: python
+    attributes:
+      label: Python version
+      placeholder: e.g. 3.11.7
+    validations:
+      required: false
+
+  - type: textarea
+    id: ffmpeg
+    attributes:
+      label: ffmpeg version
+      description: Paste the output of `ffmpeg -version`
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: command
+    attributes:
+      label: Command / steps
+      description: What did you run (CLI) or what buttons/fields did you use (GUI)?
+      placeholder: |
+        Example:
+        - python -m transcriber.cli --input sample.mkv --outdir output
+        or
+        - GUI: selected file X, model=small, clicked Start
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior / error output
+      description: Include the full traceback/log if possible
+      render: text
+    validations:
+      required: true
+
