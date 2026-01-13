@@ -1,6 +1,6 @@
-# Local MP4 → Text Transcriber (offline)
+# Local Media → Text Transcriber (offline)
 
-Transcribe `.mp4` (or any ffmpeg-supported media) to **timestamped text** locally (no cloud APIs).
+Transcribe **video or audio files** (anything `ffmpeg` can decode) to **timestamped text** locally (no cloud APIs).
 
 ## Requirements
 - macOS, Windows, or Linux
@@ -54,15 +54,22 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-Transcribe an MP4 to timestamped text + JSON segments:
+Transcribe a media file to timestamped text + JSON segments:
 
 ```bash
-python -m transcriber.cli --input /path/to/video.mp4 --model small --outdir ./output
+python -m transcriber.cli --input /path/to/video.mkv --model small --outdir ./output
 ```
 
 Outputs:
 - `output/<video>.timestamps.txt`
 - `output/<video>.segments.json`
+
+## GUI (desktop app)
+Launch the GUI:
+
+```bash
+python -m transcriber.gui
+```
 
 ## Notes (local-only)
 - The first run will download the selected Whisper model weights into your local cache (still running on-device).

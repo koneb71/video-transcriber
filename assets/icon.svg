@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Transcriber icon">
+  <defs>
+    <linearGradient id="bg" x1="160" y1="96" x2="864" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8B5CF6"/>
+      <stop offset="1" stop-color="#4F46E5"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="256" y1="160" x2="768" y2="704" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="24" stdDeviation="32" flood-color="#0B1020" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- Outer rounded square -->
+  <rect x="96" y="96" width="832" height="832" rx="192" fill="url(#bg)" filter="url(#softShadow)"/>
+
+  <!-- Subtle gloss -->
+  <path d="M240 216C240 182.863 266.863 156 300 156H724C773.706 156 814 196.294 814 246V296C814 345.706 773.706 386 724 386H372C298.216 386 240 327.784 240 254V216Z" fill="url(#shine)"/>
+
+  <!-- Waveform (centered) -->
+  <g opacity="0.95">
+    <path d="M300 600V424" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M376 656V368" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M452 720V304" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M528 744V280" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M604 720V304" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M680 656V368" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+    <path d="M756 600V424" stroke="#EDE9FE" stroke-width="40" stroke-linecap="round"/>
+  </g>
+
+  <!-- Monogram "T" (cutout style) -->
+  <path d="M352 304H672" stroke="#0B1020" stroke-opacity="0.55" stroke-width="56" stroke-linecap="round"/>
+  <path d="M512 304V736" stroke="#0B1020" stroke-opacity="0.55" stroke-width="56" stroke-linecap="round"/>
+  <path d="M352 304H672" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="44" stroke-linecap="round"/>
+  <path d="M512 304V736" stroke="#FFFFFF" stroke-opacity="0.85" stroke-width="44" stroke-linecap="round"/>
+
+  <!-- Inner border -->
+  <rect x="132" y="132" width="760" height="760" rx="170" stroke="#FFFFFF" stroke-opacity="0.18" stroke-width="8"/>
+</svg>
+

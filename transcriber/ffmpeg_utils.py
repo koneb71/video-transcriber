@@ -2,8 +2,11 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import time
 from dataclasses import dataclass
 from pathlib import Path
+
+from transcriber.errors import CancelledError
 
 
 @dataclass(frozen=True)
@@ -42,6 +45,7 @@ def extract_audio_to_wav(
     output_wav_path: Path,
     sample_rate_hz: int = 16_000,
     channels: int = 1,
+    cancel_event: object | None = None,
 ) -> FfmpegResult:
     """
     Extract audio from a video file to a PCM WAV suitable for ASR (mono, 16kHz).
@@ -54,6 +58,10 @@ def extract_audio_to_wav(
 
     cmd = [
         ffmpeg,
+        "-hide_banner",
+        "-nostdin",
+        "-loglevel",
+        "error",
         "-y",  # overwrite output
         "-i",
         str(input_path),
@@ -67,12 +75,31 @@ def extract_audio_to_wav(
         str(output_wav_path),
     ]
 
-    proc = subprocess.run(cmd, capture_output=True, text=True)
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+
+    def _cancelled() -> bool:
+        return bool(cancel_event) and bool(getattr(cancel_event, "is_set", lambda: False)())
+
+    while proc.poll() is None:
+        if _cancelled():
+            # Best-effort termination.
+            try:
+                proc.terminate()
+                proc.wait(timeout=2)
+            except Exception:  # noqa: BLE001
+                try:
+                    proc.kill()
+                except Exception:  # noqa: BLE001
+                    pass
+            raise CancelledError("Cancelled while extracting audio.")
+        time.sleep(0.1)
+
+    stdout, stderr = proc.communicate()
     if proc.returncode != 0:
         raise FfmpegFailedError(
             "ffmpeg failed to extract audio.\n"
             f"Command: {' '.join(cmd)}\n"
-            f"stderr:\n{proc.stderr}"
+            f"stderr:\n{stderr}"
         )
 
     return FfmpegResult(wav_path=output_wav_path)

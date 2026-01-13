@@ -7,6 +7,8 @@ from typing import Any, Iterable
 
 from faster_whisper import WhisperModel
 
+from transcriber.errors import CancelledError
+
 
 @dataclass(frozen=True)
 class TranscriptionSegment:
@@ -84,6 +86,7 @@ def transcribe_wav(
     compute_type: str | None = None,
     beam_size: int = 5,
     vad_filter: bool = True,
+    cancel_event: object | None = None,
 ) -> TranscriptionResult:
     """
     Run local transcription using faster-whisper and return timestamped segments.
@@ -104,6 +107,15 @@ def transcribe_wav(
 
     segments: list[TranscriptionSegment] = []
     for seg in _iter_segments(segments_iter):
+        if cancel_event and getattr(cancel_event, "is_set", lambda: False)():
+            # Best-effort close of generator if supported.
+            close = getattr(segments_iter, "close", None)
+            if callable(close):
+                try:
+                    close()
+                except Exception:  # noqa: BLE001
+                    pass
+            raise CancelledError("Cancelled while transcribing.")
         segments.append(
             TranscriptionSegment(
                 start=float(seg.start),
