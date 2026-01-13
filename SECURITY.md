@@ -4,8 +4,8 @@
 If you discover a security vulnerability, please **do not** open a public GitHub issue.
 
 Instead, report it privately:
-- Preferred: GitHub **Security Advisories** (if enabled for this repo)
-- Email: **security@localhost** (replace with your preferred contact)
+- Preferred: GitHub **Security Advisories**
+- Email: **neiellcare.paradiang@gmail.com**
 
 Please include:
 - A description of the vulnerability and impact
